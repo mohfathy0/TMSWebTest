@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Nodes>
+  <TreeViewNode Text="Company" NavigateUrl="#content">
+    <TreeViewNode Text="Company Info" NavigateUrl="CompanyInfoes/Details" />
+
+
+  </TreeViewNode>
+
+  <TreeViewNode Text="Order" NavigateUrl="#ResponsiveWebApplication">
+    <TreeViewNode Text="New Order" />
+    <TreeViewNode Text="View Orders" />
+    <TreeViewNode Text="New Multi-Stop"  />
+    <TreeViewNode Text="View MultiStops" />
+  </TreeViewNode>
+
+</Nodes>

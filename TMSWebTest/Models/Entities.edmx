@@ -1,0 +1,2043 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MiltonDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CashNote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsCashIn" Type="bit" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="StoreId" Type="int" Nullable="false" />
+          <Property Name="PartType" Type="tinyint" Nullable="false" />
+          <Property Name="PartId" Type="int" Nullable="false" />
+          <Property Name="DrawerId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="float" Nullable="false" />
+          <Property Name="DiscountValue" Type="float" Nullable="false" />
+          <Property Name="InserDate" Type="datetime" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MiltonDB.dbo.CashNoteLinks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CashNoteLinks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CashNoteId" Type="nchar" MaxLength="10" />
+          <Property Name="InvoiceType" Type="nchar" MaxLength="10" />
+          <Property Name="InvoiceId" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="CompanyInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar(max)" Nullable="false" />
+          <Property Name="VAT_ID_NIP" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="varchar(max)" />
+          <Property Name="Mobile" Type="varchar(max)" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="Website" Type="varchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Branch" Type="nvarchar(max)" />
+          <Property Name="City" Type="nvarchar(max)" />
+          <Property Name="Country" Type="nvarchar(max)" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="Logo" Type="image" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ISOCode" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="SortOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="CustomerAndVendor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="IsCustomer" Type="bit" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="VAT_NIP" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="varchar(max)" />
+          <Property Name="Mobile" Type="varchar(max)" />
+          <Property Name="Country" Type="varchar(max)" />
+          <Property Name="Branch" Type="varchar(max)" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="Website" Type="varchar(max)" />
+          <Property Name="Email" Type="varchar(max)" />
+          <Property Name="MaxCredit" Type="float" Nullable="false" />
+          <Property Name="Notes" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="DispatchForms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransportOrderNumber" Type="varchar(max)" />
+          <Property Name="ExternalReference" Type="varchar(max)" />
+          <Property Name="TruckID" Type="int" />
+          <Property Name="TruckName" Type="varchar(max)" />
+          <Property Name="TrailerID" Type="int" />
+          <Property Name="TrailerName" Type="varchar(max)" />
+          <Property Name="DriverID" Type="int" />
+          <Property Name="DriverName" Type="varchar(max)" />
+          <Property Name="CurrentStatus" Type="int" />
+          <Property Name="LoadingAddress" Type="varchar(max)" />
+          <Property Name="LoadingDateTimeFrom" Type="datetime" />
+          <Property Name="LoadingDateTimeTo" Type="datetime" />
+          <Property Name="LoadingReferenceNumber" Type="varchar(max)" />
+          <Property Name="UnloadingAddress" Type="varchar(max)" />
+          <Property Name="UnloadingDateTimeFrom" Type="datetime" />
+          <Property Name="UnloadingDateTimeTo" Type="datetime" />
+          <Property Name="UnloadingReferenceNumber" Type="varchar(max)" />
+          <Property Name="TotalWeight" Type="int" />
+          <Property Name="NumberOfLoads" Type="int" />
+          <Property Name="LoadDetails" Type="varchar(max)" />
+          <Property Name="RouteInformation" Type="varchar(max)" />
+          <Property Name="CustomsClearance" Type="varchar(max)" />
+          <Property Name="TollRoads" Type="bit" />
+          <Property Name="VignettesNeeded" Type="bit" />
+          <Property Name="FerryInformation" Type="varchar(max)" />
+          <Property Name="ContactInformation" Type="varchar(max)" />
+          <Property Name="MultiStopPlanReference" Type="nchar" MaxLength="30" />
+          <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="LoadedDateTime" Type="datetime" />
+          <Property Name="UnloadedDateTime" Type="datetime" />
+          <Property Name="DriverLastReadDateTime" Type="datetime" />
+          <Property Name="ADRCategory21" Type="bit" />
+          <Property Name="ADRCategory22" Type="bit" />
+          <Property Name="ADRCategory23" Type="bit" />
+          <Property Name="ADRCategory3" Type="bit" />
+          <Property Name="ADRCategory41" Type="bit" />
+          <Property Name="ADRCategory42" Type="bit" />
+          <Property Name="ADRCategory43" Type="bit" />
+          <Property Name="ADRCategory51" Type="bit" />
+          <Property Name="ADRCategory52" Type="bit" />
+          <Property Name="ADRCategory61" Type="bit" />
+          <Property Name="ADRCategory62" Type="bit" />
+          <Property Name="ADRCategory8" Type="bit" />
+          <Property Name="ADRCategory9" Type="bit" />
+          <Property Name="NotifyDriver" Type="bit" />
+          <Property Name="Loaded" Type="bit" />
+          <Property Name="Unloaded" Type="bit" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="FirebaseDocumentId" Type="varchar(max)" />
+          <Property Name="FirebaseDocumentRef" Type="varchar(max)" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="Documents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="DispatchFormId" Type="int" />
+          <Property Name="TransportOrderNumber" Type="varchar(max)" />
+          <Property Name="OtherReference" Type="varchar(max)" />
+          <Property Name="FileCloudURL" Type="varchar(max)" />
+          <Property Name="FileCloudName" Type="varchar(max)" />
+          <Property Name="FileLocalPath" Type="varchar(max)" />
+          <Property Name="FileLocalName" Type="varchar(max)" />
+          <Property Name="Type" Type="varchar(max)" />
+          <Property Name="TypeId" Type="int" />
+          <Property Name="FirebaseDocumentId" Type="varchar(max)" />
+          <Property Name="FirebaseDocumentRef" Type="varchar(max)" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="Drawers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="Currency" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="BankAccount" Type="varchar(max)" Nullable="false" />
+          <Property Name="Swift" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LegalNote" Type="varchar(max)" Nullable="false" />
+          <Property Name="SystemProtected" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Drivers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DriverName" Type="varchar(max)" />
+          <Property Name="PassportNumber" Type="varchar(max)" />
+          <Property Name="PassportExpiryDate" Type="date" />
+          <Property Name="DrivingLicenseNumber" Type="varchar(max)" />
+          <Property Name="DrivingLicenseExpiryDate" Type="date" />
+          <Property Name="TachoCardNumber" Type="varchar(max)" />
+          <Property Name="TachoCardExpiryDate" Type="date" />
+          <Property Name="PhoneNumber" Type="varchar(max)" />
+          <Property Name="ADRCertificateNumber" Type="varchar(max)" />
+          <Property Name="ADRCertificateExpiryDate" Type="date" />
+          <Property Name="CPCCardNumber" Type="varchar(max)" />
+          <Property Name="CPCCardExpiryDate" Type="date" />
+          <Property Name="DriverDelegations" Type="varbinary(max)" />
+          <Property Name="DrivingLicenseCategoryB" Type="bit" />
+          <Property Name="DrivingLicenseCategoryBE" Type="bit" />
+          <Property Name="DrivingLicenseCategoryC" Type="bit" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="FirebaseDocumentId" Type="varchar(max)" />
+          <Property Name="FirebaseDocumentRef" Type="varchar(max)" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="InvoiceDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="ItemUnitId" Type="int" Nullable="false" />
+          <Property Name="ItemQty" Type="float" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="TotalPrice" Type="float" Nullable="false" />
+          <Property Name="Nontaxable" Type="bit" Nullable="false" />
+          <Property Name="CostValue" Type="float" Nullable="false" />
+          <Property Name="TotalCostValue" Type="float" Nullable="false" />
+          <Property Name="DiscountRatio" Type="float" Nullable="false" />
+          <Property Name="DiscountValue" Type="float" Nullable="false" />
+          <Property Name="StoreId" Type="int" Nullable="false" />
+          <Property Name="SourceRowId" Type="int" />
+        </EntityType>
+        <EntityType Name="InvoiceHeader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceType" Type="tinyint" Nullable="false" />
+          <Property Name="Code" Type="varchar(max)" Nullable="false" />
+          <Property Name="PartyType" Type="tinyint" Nullable="false" />
+          <Property Name="PartyId" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="IssueDate" Type="datetime" Nullable="false" />
+          <Property Name="DeliveryDate" Type="datetime" />
+          <Property Name="DueDate" Type="datetime" />
+          <Property Name="Branch" Type="int" Nullable="false" />
+          <Property Name="PosteDate" Type="datetime" />
+          <Property Name="PostedToStore" Type="bit" Nullable="false" />
+          <Property Name="TotalLocal" Type="float" Nullable="false" />
+          <Property Name="Total" Type="float" Nullable="false" />
+          <Property Name="DiscountValue" Type="float" Nullable="false" />
+          <Property Name="DiscountRatio" Type="float" Nullable="false" />
+          <Property Name="TaxValue" Type="float" Nullable="false" />
+          <Property Name="TaxRatio" Type="float" Nullable="false" />
+          <Property Name="Expenses" Type="float" Nullable="false" />
+          <Property Name="Net" Type="float" Nullable="false" />
+          <Property Name="Paid" Type="float" Nullable="false" />
+          <Property Name="Currency" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Drawer" Type="int" Nullable="false" />
+          <Property Name="Remaining" Type="float" Nullable="false" />
+          <Property Name="ShippingAddress" Type="varchar(max)" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="SourceType" Type="tinyint" />
+          <Property Name="SourceId" Type="int" />
+        </EntityType>
+        <EntityType Name="InvoicingSheets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransportOrderNumber" Type="varchar(max)" />
+          <Property Name="TruckFireStoreRef" Type="varchar(max)" />
+          <Property Name="TruckName" Type="varchar(max)" />
+          <Property Name="TruckId" Type="int" />
+          <Property Name="ExternalReference" Type="varchar(max)" />
+          <Property Name="DateReceived" Type="datetime" />
+          <Property Name="Currency" Type="varchar(max)" />
+          <Property Name="CurrencyId" Type="int" />
+          <Property Name="CurrencyDocumentId" Type="varchar(max)" />
+          <Property Name="VATPercentage" Type="float" />
+          <Property Name="NIPEUVATNumber" Type="varchar(max)" />
+          <Property Name="BuyerId" Type="int" />
+          <Property Name="BuyerName" Type="varchar(max)" />
+          <Property Name="BuyerAddress" Type="varchar(max)" />
+          <Property Name="BuyerEmail" Type="varchar(max)" />
+          <Property Name="DeadLine" Type="int" />
+          <Property Name="DepartureLocation" Type="varchar(max)" />
+          <Property Name="ArrivalLocation" Type="varchar(max)" />
+          <Property Name="DistanceKM" Type="float" />
+          <Property Name="TotalOrderWorthNET" Type="float" />
+          <Property Name="TotalOrderWorthGROSS" Type="float" />
+          <Property Name="RatePerKM" Type="float" />
+          <Property Name="DateTimeCompleted" Type="datetime" />
+          <Property Name="DateTimeCMRSent" Type="datetime" />
+          <Property Name="InvoiceNumber" Type="varchar(max)" />
+          <Property Name="InvoiceIssuedDate" Type="datetime" />
+          <Property Name="InvoiceLink" Type="varchar(max)" />
+          <Property Name="PaymentDeadline" Type="nchar" MaxLength="250" />
+          <Property Name="PaymentDeadlineDate" Type="datetime" />
+          <Property Name="DatePaymentReceived" Type="datetime" />
+          <Property Name="FreightExchange" Type="varchar(max)" />
+          <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="FactoringAgent" Type="varchar(max)" />
+          <Property Name="ParentInvoice" Type="varchar(max)" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="DispatchFormId" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="ChildInvoices" Type="varbinary(max)" />
+          <Property Name="FirebaseDocumentId" Type="varchar(max)" />
+          <Property Name="FirebaseDocumentRef" Type="varchar(max)" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="Journals">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="bigint" Nullable="false" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="Debit" Type="float" Nullable="false" />
+          <Property Name="Credit" Type="float" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="SourceType" Type="tinyint" Nullable="false" />
+          <Property Name="SourceId" Type="int" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="logDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="logThread" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="logLevel" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="logSource" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="logMessage" Type="varchar(max)" Nullable="false" />
+          <Property Name="exception" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="MultiStopDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MultiStopRef" Type="varchar(max)" />
+          <Property Name="MultiStopRefId" Type="int" />
+          <Property Name="TransportOrderNumber" Type="varchar(max)" />
+          <Property Name="ExternalReference" Type="varchar(max)" />
+          <Property Name="DispatchFormId" Type="int" />
+          <Property Name="DriverId" Type="int" />
+          <Property Name="TruckId" Type="int" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="LoadDetails" Type="varchar(max)" />
+          <Property Name="Load_UnLoad" Type="varchar(max)" />
+          <Property Name="TotalWeightText" Type="varchar(max)" />
+          <Property Name="TargetDateTime" Type="datetime" />
+          <Property Name="CurrentStatus" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="FirebaseDocumentId" Type="varchar(max)" />
+          <Property Name="FirebaseDocumentRef" Type="varchar(max)" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="MultiStopHeaders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MultiStopRef" Type="varchar(max)" />
+          <Property Name="TransportOrderNumber" Type="varchar(max)" />
+          <Property Name="DispatchFormId" Type="int" />
+          <Property Name="DriverId" Type="int" />
+          <Property Name="TruckId" Type="int" />
+          <Property Name="CurrentStatus" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="FirebaseDocumentId" Type="varchar(max)" />
+          <Property Name="FirebaseDocumentRef" Type="varchar(max)" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar(max)" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="Type" Type="tinyint" Nullable="false" />
+          <Property Name="Descreption" Type="varchar(max)" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="CostCalculationMethod" Type="tinyint" Nullable="false" />
+          <Property Name="Nontaxable" Type="bit" Nullable="false" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="Number" Type="char" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductUnits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="Factor" Type="float" Nullable="false" />
+          <Property Name="BuyPrice" Type="float" Nullable="false" />
+          <Property Name="SellPrice" Type="float" Nullable="false" />
+          <Property Name="SellDiscount" Type="float" Nullable="false" />
+          <Property Name="Barcode" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StoreLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SourceType" Type="tinyint" Nullable="false" />
+          <Property Name="SourceId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="StoreId" Type="int" Nullable="false" />
+          <Property Name="Qty" Type="float" Nullable="false" />
+          <Property Name="IsInTransaction" Type="bit" Nullable="false" />
+          <Property Name="CostValue" Type="float" Nullable="false" />
+          <Property Name="InsertDate" Type="datetime" />
+          <Property Name="Notes" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Stores">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="SalesAccountId" Type="int" Nullable="false" />
+          <Property Name="SalesReturnAccountId" Type="int" Nullable="false" />
+          <Property Name="InventoryAccountId" Type="int" Nullable="false" />
+          <Property Name="CostOfSoldGoodsAccountId" Type="int" Nullable="false" />
+          <Property Name="DiscountReceivedAccountId" Type="int" Nullable="false" />
+          <Property Name="DiscountAllowedAccountId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Trailers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TrailerName" Type="varchar(max)" />
+          <Property Name="TrailerRegistrationNumber" Type="varchar(max)" />
+          <Property Name="TrailerFullName" Type="varchar(max)" />
+          <Property Name="CargoHeight" Type="float" />
+          <Property Name="CargoWidth" Type="float" />
+          <Property Name="CargoLength" Type="float" />
+          <Property Name="GrossWeight" Type="float" />
+          <Property Name="LoadingWeight" Type="float" />
+          <Property Name="TrailerTechnicalInspectionExpiryDate" Type="date" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="FirebaseDocumentId" Type="varchar(max)" />
+          <Property Name="FirebaseDocumentRef" Type="varchar(max)" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="TruckExpenses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="varchar(max)" />
+          <Property Name="UserInputDate" Type="datetime" />
+          <Property Name="Location" Type="varchar(max)" />
+          <Property Name="AmountOfLiters" Type="float" />
+          <Property Name="TotalCost" Type="float" />
+          <Property Name="Currency" Type="varchar(max)" />
+          <Property Name="ReceiptNumber" Type="varchar(max)" />
+          <Property Name="PaymentMethod" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="CountryOfToll" Type="varchar(max)" />
+          <Property Name="TruckName" Type="varchar(max)" />
+          <Property Name="TruckId" Type="int" />
+          <Property Name="Comment" Type="varchar(max)" />
+          <Property Name="Odometer" Type="float" />
+          <Property Name="DistanceTravelled" Type="float" />
+          <Property Name="Consumption" Type="float" />
+          <Property Name="GUID" Type="varchar(max)" />
+          <Property Name="LocationGeo" Type="geography" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="FirebaseDocumentId" Type="varchar(max)" />
+          <Property Name="FirebaseDocumentRef" Type="varchar(max)" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="Trucks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TruckName" Type="varchar(max)" />
+          <Property Name="TruckFullName" Type="varchar(max)" />
+          <Property Name="TruckRegistrationNumber" Type="varchar(max)" />
+          <Property Name="EuroCateogry" Type="varchar(max)" />
+          <Property Name="Vignettes" Type="varbinary(max)" />
+          <Property Name="PhoneNumber" Type="varchar(max)" />
+          <Property Name="CargoHeight" Type="float" />
+          <Property Name="CargoWidth" Type="float" />
+          <Property Name="CargoLength" Type="float" />
+          <Property Name="AustriaLSticker" Type="bit" />
+          <Property Name="GrossWeight" Type="float" />
+          <Property Name="LoadingWeight" Type="float" />
+          <Property Name="MaximumTrailerGrossWeight" Type="float" />
+          <Property Name="LondonLowEmissionZone" Type="bit" />
+          <Property Name="FranceCritAir" Type="bit" />
+          <Property Name="ViennaLowEmissionZone" Type="bit" />
+          <Property Name="TrailerName" Type="varchar(max)" />
+          <Property Name="TrailerID" Type="int" />
+          <Property Name="DriverName" Type="varchar(max)" />
+          <Property Name="DriverID" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="TechnicalInspectionExpiryDate" Type="datetime" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="FirebaseDocumentId" Type="varchar(max)" />
+          <Property Name="FirebaseDocumentRef" Type="varchar(max)" />
+          <Property Name="Archived" Type="bit" />
+        </EntityType>
+        <EntityType Name="UnitName">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="UserAccessProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserAccessProfileDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserAccessProfileId" Type="int" Nullable="false" />
+          <Property Name="ScreenId" Type="int" Nullable="false" />
+          <Property Name="CanShow" Type="bit" Nullable="false" />
+          <Property Name="CanOpen" Type="bit" Nullable="false" />
+          <Property Name="CanAdd" Type="bit" Nullable="false" />
+          <Property Name="CanEdit" Type="bit" Nullable="false" />
+          <Property Name="CanDelete" Type="bit" Nullable="false" />
+          <Property Name="CanPrint" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ActionDate" Type="datetime" Nullable="false" />
+          <Property Name="ScreenId" Type="int" Nullable="false" />
+          <Property Name="ActionType" Type="tinyint" Nullable="false" />
+          <Property Name="PartId" Type="int" Nullable="false" />
+          <Property Name="PartName" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="Username" Type="varchar(max)" Nullable="false" />
+          <Property Name="UserType" Type="tinyint" Nullable="false" />
+          <Property Name="SettingsProfileId" Type="int" Nullable="false" />
+          <Property Name="ScreenProfileId" Type="int" />
+          <Property Name="Inactive" Type="bit" Nullable="false" />
+          <Property Name="Password" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserSettingsProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserSetttingsProfileProperty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProfileId" Type="int" Nullable="false" />
+          <Property Name="PropertyName" Type="varchar(max)" Nullable="false" />
+          <Property Name="PropertyValue" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Documents_DispatchForm">
+          <End Role="DispatchForms" Type="Self.DispatchForms" Multiplicity="0..1" />
+          <End Role="Documents" Type="Self.Documents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DispatchForms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="DispatchFormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductUnits_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductUnits" Type="Self.ProductUnits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductUnits">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MiltonDBModelStoreContainer">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CashNote" EntityType="Self.CashNote" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanyInfo" EntityType="Self.CompanyInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerAndVendor" EntityType="Self.CustomerAndVendor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DispatchForms" EntityType="Self.DispatchForms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drawers" EntityType="Self.Drawers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceDetails" EntityType="Self.InvoiceDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceHeader" EntityType="Self.InvoiceHeader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoicingSheets" EntityType="Self.InvoicingSheets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Journals" EntityType="Self.Journals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MultiStopDetails" EntityType="Self.MultiStopDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MultiStopHeaders" EntityType="Self.MultiStopHeaders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductUnits" EntityType="Self.ProductUnits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StoreLog" EntityType="Self.StoreLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stores" EntityType="Self.Stores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trailers" EntityType="Self.Trailers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TruckExpenses" EntityType="Self.TruckExpenses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trucks" EntityType="Self.Trucks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnitName" EntityType="Self.UnitName" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAccessProfile" EntityType="Self.UserAccessProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAccessProfileDetails" EntityType="Self.UserAccessProfileDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLog" EntityType="Self.UserLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSettingsProfile" EntityType="Self.UserSettingsProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSetttingsProfileProperty" EntityType="Self.UserSetttingsProfileProperty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CashNoteLinks" EntityType="Self.CashNoteLinks" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CashNoteLinks].[Id] AS [Id], 
+    [CashNoteLinks].[CashNoteId] AS [CashNoteId], 
+    [CashNoteLinks].[InvoiceType] AS [InvoiceType], 
+    [CashNoteLinks].[InvoiceId] AS [InvoiceId]
+    FROM [dbo].[CashNoteLinks] AS [CashNoteLinks]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Documents_DispatchForm" Association="Self.FK_Documents_DispatchForm">
+            <End Role="DispatchForms" EntitySet="DispatchForms" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductUnits_Product" Association="Self.FK_ProductUnits_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductUnits" EntitySet="ProductUnits" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MiltonDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CashNote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsCashIn" Type="Boolean" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StoreId" Type="Int32" Nullable="false" />
+          <Property Name="PartType" Type="Byte" Nullable="false" />
+          <Property Name="PartId" Type="Int32" Nullable="false" />
+          <Property Name="DrawerId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Double" Nullable="false" />
+          <Property Name="DiscountValue" Type="Double" Nullable="false" />
+          <Property Name="InserDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CompanyInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VAT_ID_NIP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Website" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Branch" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ISOCode" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="SortOrder" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CustomerAndVendor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="IsCustomer" Type="Boolean" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VAT_NIP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Branch" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Website" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MaxCredit" Type="Double" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DispatchForm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransportOrderNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ExternalReference" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TruckID" Type="Int32" />
+          <Property Name="TruckName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TrailerID" Type="Int32" />
+          <Property Name="TrailerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DriverID" Type="Int32" />
+          <Property Name="DriverName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentStatus" Type="Int32" />
+          <Property Name="LoadingAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LoadingDateTimeFrom" Type="DateTime" Precision="3" />
+          <Property Name="LoadingDateTimeTo" Type="DateTime" Precision="3" />
+          <Property Name="LoadingReferenceNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UnloadingAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UnloadingDateTimeFrom" Type="DateTime" Precision="3" />
+          <Property Name="UnloadingDateTimeTo" Type="DateTime" Precision="3" />
+          <Property Name="UnloadingReferenceNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TotalWeight" Type="Int32" />
+          <Property Name="NumberOfLoads" Type="Int32" />
+          <Property Name="LoadDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RouteInformation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CustomsClearance" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TollRoads" Type="Boolean" />
+          <Property Name="VignettesNeeded" Type="Boolean" />
+          <Property Name="FerryInformation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ContactInformation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MultiStopPlanReference" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LoadedDateTime" Type="DateTime" Precision="3" />
+          <Property Name="UnloadedDateTime" Type="DateTime" Precision="3" />
+          <Property Name="DriverLastReadDateTime" Type="DateTime" Precision="3" />
+          <Property Name="ADRCategory21" Type="Boolean" />
+          <Property Name="ADRCategory22" Type="Boolean" />
+          <Property Name="ADRCategory23" Type="Boolean" />
+          <Property Name="ADRCategory3" Type="Boolean" />
+          <Property Name="ADRCategory41" Type="Boolean" />
+          <Property Name="ADRCategory42" Type="Boolean" />
+          <Property Name="ADRCategory43" Type="Boolean" />
+          <Property Name="ADRCategory51" Type="Boolean" />
+          <Property Name="ADRCategory52" Type="Boolean" />
+          <Property Name="ADRCategory61" Type="Boolean" />
+          <Property Name="ADRCategory62" Type="Boolean" />
+          <Property Name="ADRCategory8" Type="Boolean" />
+          <Property Name="ADRCategory9" Type="Boolean" />
+          <Property Name="NotifyDriver" Type="Boolean" />
+          <Property Name="Loaded" Type="Boolean" />
+          <Property Name="Unloaded" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="FirebaseDocumentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FirebaseDocumentRef" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Archived" Type="Boolean" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK_Documents_DispatchForm" FromRole="DispatchForms" ToRole="Documents" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="DispatchFormId" Type="Int32" />
+          <Property Name="TransportOrderNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OtherReference" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FileCloudURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FileCloudName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FileLocalPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FileLocalName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TypeId" Type="Int32" />
+          <Property Name="FirebaseDocumentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FirebaseDocumentRef" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Archived" Type="Boolean" />
+          <NavigationProperty Name="DispatchForm" Relationship="Self.FK_Documents_DispatchForm" FromRole="Documents" ToRole="DispatchForms" />
+        </EntityType>
+        <EntityType Name="Drawer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="Currency" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="BankAccount" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Swift" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LegalNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SystemProtected" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DriverName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PassportNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PassportExpiryDate" Type="DateTime" Precision="0" />
+          <Property Name="DrivingLicenseNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DrivingLicenseExpiryDate" Type="DateTime" Precision="0" />
+          <Property Name="TachoCardNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TachoCardExpiryDate" Type="DateTime" Precision="0" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ADRCertificateNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ADRCertificateExpiryDate" Type="DateTime" Precision="0" />
+          <Property Name="CPCCardNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CPCCardExpiryDate" Type="DateTime" Precision="0" />
+          <Property Name="DriverDelegations" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DrivingLicenseCategoryB" Type="Boolean" />
+          <Property Name="DrivingLicenseCategoryBE" Type="Boolean" />
+          <Property Name="DrivingLicenseCategoryC" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="FirebaseDocumentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FirebaseDocumentRef" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Archived" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="InvoiceDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="ItemUnitId" Type="Int32" Nullable="false" />
+          <Property Name="ItemQty" Type="Double" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="TotalPrice" Type="Double" Nullable="false" />
+          <Property Name="Nontaxable" Type="Boolean" Nullable="false" />
+          <Property Name="CostValue" Type="Double" Nullable="false" />
+          <Property Name="TotalCostValue" Type="Double" Nullable="false" />
+          <Property Name="DiscountRatio" Type="Double" Nullable="false" />
+          <Property Name="DiscountValue" Type="Double" Nullable="false" />
+          <Property Name="StoreId" Type="Int32" Nullable="false" />
+          <Property Name="SourceRowId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="InvoiceHeader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceType" Type="Byte" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PartyType" Type="Byte" Nullable="false" />
+          <Property Name="PartyId" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="DueDate" Type="DateTime" Precision="3" />
+          <Property Name="Branch" Type="Int32" Nullable="false" />
+          <Property Name="PosteDate" Type="DateTime" Precision="3" />
+          <Property Name="PostedToStore" Type="Boolean" Nullable="false" />
+          <Property Name="TotalLocal" Type="Double" Nullable="false" />
+          <Property Name="Total" Type="Double" Nullable="false" />
+          <Property Name="DiscountValue" Type="Double" Nullable="false" />
+          <Property Name="DiscountRatio" Type="Double" Nullable="false" />
+          <Property Name="TaxValue" Type="Double" Nullable="false" />
+          <Property Name="TaxRatio" Type="Double" Nullable="false" />
+          <Property Name="Expenses" Type="Double" Nullable="false" />
+          <Property Name="Net" Type="Double" Nullable="false" />
+          <Property Name="Paid" Type="Double" Nullable="false" />
+          <Property Name="Currency" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Drawer" Type="Int32" Nullable="false" />
+          <Property Name="Remaining" Type="Double" Nullable="false" />
+          <Property Name="ShippingAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SourceType" Type="Byte" />
+          <Property Name="SourceId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="InvoicingSheet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransportOrderNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TruckFireStoreRef" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TruckName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TruckId" Type="Int32" />
+          <Property Name="ExternalReference" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DateReceived" Type="DateTime" Precision="3" />
+          <Property Name="Currency" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CurrencyId" Type="Int32" />
+          <Property Name="CurrencyDocumentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VATPercentage" Type="Double" />
+          <Property Name="NIPEUVATNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BuyerId" Type="Int32" />
+          <Property Name="BuyerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BuyerAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BuyerEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DeadLine" Type="Int32" />
+          <Property Name="DepartureLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ArrivalLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DistanceKM" Type="Double" />
+          <Property Name="TotalOrderWorthNET" Type="Double" />
+          <Property Name="TotalOrderWorthGROSS" Type="Double" />
+          <Property Name="RatePerKM" Type="Double" />
+          <Property Name="DateTimeCompleted" Type="DateTime" Precision="3" />
+          <Property Name="DateTimeCMRSent" Type="DateTime" Precision="3" />
+          <Property Name="InvoiceNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceIssuedDate" Type="DateTime" Precision="3" />
+          <Property Name="InvoiceLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentDeadline" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+          <Property Name="PaymentDeadlineDate" Type="DateTime" Precision="3" />
+          <Property Name="DatePaymentReceived" Type="DateTime" Precision="3" />
+          <Property Name="FreightExchange" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FactoringAgent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ParentInvoice" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="DispatchFormId" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="ChildInvoices" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FirebaseDocumentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FirebaseDocumentRef" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Archived" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Journal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="Int64" Nullable="false" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="Debit" Type="Double" Nullable="false" />
+          <Property Name="Credit" Type="Double" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="SourceType" Type="Byte" Nullable="false" />
+          <Property Name="SourceId" Type="Int32" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="logDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="logThread" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="logLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="logSource" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="logMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="exception" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MultiStopDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MultiStopRef" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MultiStopRefId" Type="Int32" />
+          <Property Name="TransportOrderNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ExternalReference" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DispatchFormId" Type="Int32" />
+          <Property Name="DriverId" Type="Int32" />
+          <Property Name="TruckId" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LoadDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Load_UnLoad" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TotalWeightText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TargetDateTime" Type="DateTime" Precision="3" />
+          <Property Name="CurrentStatus" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="FirebaseDocumentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FirebaseDocumentRef" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Archived" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="MultiStopHeader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MultiStopRef" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TransportOrderNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DispatchFormId" Type="Int32" />
+          <Property Name="DriverId" Type="Int32" />
+          <Property Name="TruckId" Type="Int32" />
+          <Property Name="CurrentStatus" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="FirebaseDocumentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FirebaseDocumentRef" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Archived" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
+          <Property Name="Descreption" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="CostCalculationMethod" Type="Byte" Nullable="false" />
+          <Property Name="Nontaxable" Type="Boolean" Nullable="false" />
+          <Property Name="Inactive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ProductUnits" Relationship="Self.FK_ProductUnits_Product" FromRole="Product" ToRole="ProductUnits" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductUnit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="Factor" Type="Double" Nullable="false" />
+          <Property Name="BuyPrice" Type="Double" Nullable="false" />
+          <Property Name="SellPrice" Type="Double" Nullable="false" />
+          <Property Name="SellDiscount" Type="Double" Nullable="false" />
+          <Property Name="Barcode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductUnits_Product" FromRole="ProductUnits" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="StoreLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SourceType" Type="Byte" Nullable="false" />
+          <Property Name="SourceId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="StoreId" Type="Int32" Nullable="false" />
+          <Property Name="Qty" Type="Double" Nullable="false" />
+          <Property Name="IsInTransaction" Type="Boolean" Nullable="false" />
+          <Property Name="CostValue" Type="Double" Nullable="false" />
+          <Property Name="InsertDate" Type="DateTime" Precision="3" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SalesAccountId" Type="Int32" Nullable="false" />
+          <Property Name="SalesReturnAccountId" Type="Int32" Nullable="false" />
+          <Property Name="InventoryAccountId" Type="Int32" Nullable="false" />
+          <Property Name="CostOfSoldGoodsAccountId" Type="Int32" Nullable="false" />
+          <Property Name="DiscountReceivedAccountId" Type="Int32" Nullable="false" />
+          <Property Name="DiscountAllowedAccountId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Trailer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TrailerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TrailerRegistrationNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TrailerFullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CargoHeight" Type="Double" />
+          <Property Name="CargoWidth" Type="Double" />
+          <Property Name="CargoLength" Type="Double" />
+          <Property Name="GrossWeight" Type="Double" />
+          <Property Name="LoadingWeight" Type="Double" />
+          <Property Name="TrailerTechnicalInspectionExpiryDate" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="FirebaseDocumentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FirebaseDocumentRef" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Archived" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="TruckExpens">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UserInputDate" Type="DateTime" Precision="3" />
+          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AmountOfLiters" Type="Double" />
+          <Property Name="TotalCost" Type="Double" />
+          <Property Name="Currency" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReceiptNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentMethod" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CountryOfToll" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TruckName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TruckId" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Odometer" Type="Double" />
+          <Property Name="DistanceTravelled" Type="Double" />
+          <Property Name="Consumption" Type="Double" />
+          <Property Name="GUID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LocationGeo" Type="Geography" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="FirebaseDocumentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FirebaseDocumentRef" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Archived" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Truck">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TruckName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TruckFullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TruckRegistrationNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EuroCateogry" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Vignettes" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CargoHeight" Type="Double" />
+          <Property Name="CargoWidth" Type="Double" />
+          <Property Name="CargoLength" Type="Double" />
+          <Property Name="AustriaLSticker" Type="Boolean" />
+          <Property Name="GrossWeight" Type="Double" />
+          <Property Name="LoadingWeight" Type="Double" />
+          <Property Name="MaximumTrailerGrossWeight" Type="Double" />
+          <Property Name="LondonLowEmissionZone" Type="Boolean" />
+          <Property Name="FranceCritAir" Type="Boolean" />
+          <Property Name="ViennaLowEmissionZone" Type="Boolean" />
+          <Property Name="TrailerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TrailerID" Type="Int32" />
+          <Property Name="DriverName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DriverID" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="TechnicalInspectionExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <Property Name="FirebaseDocumentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FirebaseDocumentRef" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Archived" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UnitName">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserAccessProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserAccessProfileDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserAccessProfileId" Type="Int32" Nullable="false" />
+          <Property Name="ScreenId" Type="Int32" Nullable="false" />
+          <Property Name="CanShow" Type="Boolean" Nullable="false" />
+          <Property Name="CanOpen" Type="Boolean" Nullable="false" />
+          <Property Name="CanAdd" Type="Boolean" Nullable="false" />
+          <Property Name="CanEdit" Type="Boolean" Nullable="false" />
+          <Property Name="CanDelete" Type="Boolean" Nullable="false" />
+          <Property Name="CanPrint" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ScreenId" Type="Int32" Nullable="false" />
+          <Property Name="ActionType" Type="Byte" Nullable="false" />
+          <Property Name="PartId" Type="Int32" Nullable="false" />
+          <Property Name="PartName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserType" Type="Byte" Nullable="false" />
+          <Property Name="SettingsProfileId" Type="Int32" Nullable="false" />
+          <Property Name="ScreenProfileId" Type="Int32" />
+          <Property Name="Inactive" Type="Boolean" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserSettingsProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserSetttingsProfileProperty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProfileId" Type="Int32" Nullable="false" />
+          <Property Name="PropertyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PropertyValue" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CashNoteLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CashNoteId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="InvoiceType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="InvoiceId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Documents_DispatchForm">
+          <End Role="DispatchForms" Type="Self.DispatchForm" Multiplicity="0..1" />
+          <End Role="Documents" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DispatchForms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="DispatchFormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductUnits_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductUnits" Type="Self.ProductUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductUnits">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MiltonDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="CashNotes" EntityType="Self.CashNote" />
+          <EntitySet Name="CompanyInfoes" EntityType="Self.CompanyInfo" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="CustomerAndVendors" EntityType="Self.CustomerAndVendor" />
+          <EntitySet Name="DispatchForms" EntityType="Self.DispatchForm" />
+          <EntitySet Name="Documents" EntityType="Self.Document" />
+          <EntitySet Name="Drawers" EntityType="Self.Drawer" />
+          <EntitySet Name="Drivers" EntityType="Self.Driver" />
+          <EntitySet Name="InvoiceDetails" EntityType="Self.InvoiceDetail" />
+          <EntitySet Name="InvoiceHeaders" EntityType="Self.InvoiceHeader" />
+          <EntitySet Name="InvoicingSheets" EntityType="Self.InvoicingSheet" />
+          <EntitySet Name="Journals" EntityType="Self.Journal" />
+          <EntitySet Name="Logs" EntityType="Self.Log" />
+          <EntitySet Name="MultiStopDetails" EntityType="Self.MultiStopDetail" />
+          <EntitySet Name="MultiStopHeaders" EntityType="Self.MultiStopHeader" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
+          <EntitySet Name="ProductUnits" EntityType="Self.ProductUnit" />
+          <EntitySet Name="StoreLogs" EntityType="Self.StoreLog" />
+          <EntitySet Name="Stores" EntityType="Self.Store" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Trailers" EntityType="Self.Trailer" />
+          <EntitySet Name="TruckExpenses" EntityType="Self.TruckExpens" />
+          <EntitySet Name="Trucks" EntityType="Self.Truck" />
+          <EntitySet Name="UnitNames" EntityType="Self.UnitName" />
+          <EntitySet Name="UserAccessProfiles" EntityType="Self.UserAccessProfile" />
+          <EntitySet Name="UserAccessProfileDetails" EntityType="Self.UserAccessProfileDetail" />
+          <EntitySet Name="UserLogs" EntityType="Self.UserLog" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserSettingsProfiles" EntityType="Self.UserSettingsProfile" />
+          <EntitySet Name="UserSetttingsProfileProperties" EntityType="Self.UserSetttingsProfileProperty" />
+          <EntitySet Name="CashNoteLinks" EntityType="Self.CashNoteLink" />
+          <AssociationSet Name="FK_Documents_DispatchForm" Association="Self.FK_Documents_DispatchForm">
+            <End Role="DispatchForms" EntitySet="DispatchForms" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductUnits_Product" Association="Self.FK_ProductUnits_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductUnits" EntitySet="ProductUnits" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MiltonDBModelStoreContainer" CdmEntityContainer="MiltonDBEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="MiltonDBModel.Account">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CashNotes">
+            <EntityTypeMapping TypeName="MiltonDBModel.CashNote">
+              <MappingFragment StoreEntitySet="CashNote">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IsCashIn" ColumnName="IsCashIn" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="PartType" ColumnName="PartType" />
+                <ScalarProperty Name="PartId" ColumnName="PartId" />
+                <ScalarProperty Name="DrawerId" ColumnName="DrawerId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
+                <ScalarProperty Name="InserDate" ColumnName="InserDate" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanyInfoes">
+            <EntityTypeMapping TypeName="MiltonDBModel.CompanyInfo">
+              <MappingFragment StoreEntitySet="CompanyInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="VAT_ID_NIP" ColumnName="VAT_ID_NIP" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="MiltonDBModel.Country">
+              <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ISOCode" ColumnName="ISOCode" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerAndVendors">
+            <EntityTypeMapping TypeName="MiltonDBModel.CustomerAndVendor">
+              <MappingFragment StoreEntitySet="CustomerAndVendor">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="IsCustomer" ColumnName="IsCustomer" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="VAT_NIP" ColumnName="VAT_NIP" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MaxCredit" ColumnName="MaxCredit" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DispatchForms">
+            <EntityTypeMapping TypeName="MiltonDBModel.DispatchForm">
+              <MappingFragment StoreEntitySet="DispatchForms">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TransportOrderNumber" ColumnName="TransportOrderNumber" />
+                <ScalarProperty Name="ExternalReference" ColumnName="ExternalReference" />
+                <ScalarProperty Name="TruckID" ColumnName="TruckID" />
+                <ScalarProperty Name="TruckName" ColumnName="TruckName" />
+                <ScalarProperty Name="TrailerID" ColumnName="TrailerID" />
+                <ScalarProperty Name="TrailerName" ColumnName="TrailerName" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="CurrentStatus" ColumnName="CurrentStatus" />
+                <ScalarProperty Name="LoadingAddress" ColumnName="LoadingAddress" />
+                <ScalarProperty Name="LoadingDateTimeFrom" ColumnName="LoadingDateTimeFrom" />
+                <ScalarProperty Name="LoadingDateTimeTo" ColumnName="LoadingDateTimeTo" />
+                <ScalarProperty Name="LoadingReferenceNumber" ColumnName="LoadingReferenceNumber" />
+                <ScalarProperty Name="UnloadingAddress" ColumnName="UnloadingAddress" />
+                <ScalarProperty Name="UnloadingDateTimeFrom" ColumnName="UnloadingDateTimeFrom" />
+                <ScalarProperty Name="UnloadingDateTimeTo" ColumnName="UnloadingDateTimeTo" />
+                <ScalarProperty Name="UnloadingReferenceNumber" ColumnName="UnloadingReferenceNumber" />
+                <ScalarProperty Name="TotalWeight" ColumnName="TotalWeight" />
+                <ScalarProperty Name="NumberOfLoads" ColumnName="NumberOfLoads" />
+                <ScalarProperty Name="LoadDetails" ColumnName="LoadDetails" />
+                <ScalarProperty Name="RouteInformation" ColumnName="RouteInformation" />
+                <ScalarProperty Name="CustomsClearance" ColumnName="CustomsClearance" />
+                <ScalarProperty Name="TollRoads" ColumnName="TollRoads" />
+                <ScalarProperty Name="VignettesNeeded" ColumnName="VignettesNeeded" />
+                <ScalarProperty Name="FerryInformation" ColumnName="FerryInformation" />
+                <ScalarProperty Name="ContactInformation" ColumnName="ContactInformation" />
+                <ScalarProperty Name="MultiStopPlanReference" ColumnName="MultiStopPlanReference" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="LoadedDateTime" ColumnName="LoadedDateTime" />
+                <ScalarProperty Name="UnloadedDateTime" ColumnName="UnloadedDateTime" />
+                <ScalarProperty Name="DriverLastReadDateTime" ColumnName="DriverLastReadDateTime" />
+                <ScalarProperty Name="ADRCategory21" ColumnName="ADRCategory21" />
+                <ScalarProperty Name="ADRCategory22" ColumnName="ADRCategory22" />
+                <ScalarProperty Name="ADRCategory23" ColumnName="ADRCategory23" />
+                <ScalarProperty Name="ADRCategory3" ColumnName="ADRCategory3" />
+                <ScalarProperty Name="ADRCategory41" ColumnName="ADRCategory41" />
+                <ScalarProperty Name="ADRCategory42" ColumnName="ADRCategory42" />
+                <ScalarProperty Name="ADRCategory43" ColumnName="ADRCategory43" />
+                <ScalarProperty Name="ADRCategory51" ColumnName="ADRCategory51" />
+                <ScalarProperty Name="ADRCategory52" ColumnName="ADRCategory52" />
+                <ScalarProperty Name="ADRCategory61" ColumnName="ADRCategory61" />
+                <ScalarProperty Name="ADRCategory62" ColumnName="ADRCategory62" />
+                <ScalarProperty Name="ADRCategory8" ColumnName="ADRCategory8" />
+                <ScalarProperty Name="ADRCategory9" ColumnName="ADRCategory9" />
+                <ScalarProperty Name="NotifyDriver" ColumnName="NotifyDriver" />
+                <ScalarProperty Name="Loaded" ColumnName="Loaded" />
+                <ScalarProperty Name="Unloaded" ColumnName="Unloaded" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="FirebaseDocumentId" ColumnName="FirebaseDocumentId" />
+                <ScalarProperty Name="FirebaseDocumentRef" ColumnName="FirebaseDocumentRef" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="MiltonDBModel.Document">
+              <MappingFragment StoreEntitySet="Documents">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DispatchFormId" ColumnName="DispatchFormId" />
+                <ScalarProperty Name="TransportOrderNumber" ColumnName="TransportOrderNumber" />
+                <ScalarProperty Name="OtherReference" ColumnName="OtherReference" />
+                <ScalarProperty Name="FileCloudURL" ColumnName="FileCloudURL" />
+                <ScalarProperty Name="FileCloudName" ColumnName="FileCloudName" />
+                <ScalarProperty Name="FileLocalPath" ColumnName="FileLocalPath" />
+                <ScalarProperty Name="FileLocalName" ColumnName="FileLocalName" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="FirebaseDocumentId" ColumnName="FirebaseDocumentId" />
+                <ScalarProperty Name="FirebaseDocumentRef" ColumnName="FirebaseDocumentRef" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drawers">
+            <EntityTypeMapping TypeName="MiltonDBModel.Drawer">
+              <MappingFragment StoreEntitySet="Drawers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
+                <ScalarProperty Name="Swift" ColumnName="Swift" />
+                <ScalarProperty Name="LegalNote" ColumnName="LegalNote" />
+                <ScalarProperty Name="SystemProtected" ColumnName="SystemProtected" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="MiltonDBModel.Driver">
+              <MappingFragment StoreEntitySet="Drivers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="PassportExpiryDate" ColumnName="PassportExpiryDate" />
+                <ScalarProperty Name="DrivingLicenseNumber" ColumnName="DrivingLicenseNumber" />
+                <ScalarProperty Name="DrivingLicenseExpiryDate" ColumnName="DrivingLicenseExpiryDate" />
+                <ScalarProperty Name="TachoCardNumber" ColumnName="TachoCardNumber" />
+                <ScalarProperty Name="TachoCardExpiryDate" ColumnName="TachoCardExpiryDate" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ADRCertificateNumber" ColumnName="ADRCertificateNumber" />
+                <ScalarProperty Name="ADRCertificateExpiryDate" ColumnName="ADRCertificateExpiryDate" />
+                <ScalarProperty Name="CPCCardNumber" ColumnName="CPCCardNumber" />
+                <ScalarProperty Name="CPCCardExpiryDate" ColumnName="CPCCardExpiryDate" />
+                <ScalarProperty Name="DriverDelegations" ColumnName="DriverDelegations" />
+                <ScalarProperty Name="DrivingLicenseCategoryB" ColumnName="DrivingLicenseCategoryB" />
+                <ScalarProperty Name="DrivingLicenseCategoryBE" ColumnName="DrivingLicenseCategoryBE" />
+                <ScalarProperty Name="DrivingLicenseCategoryC" ColumnName="DrivingLicenseCategoryC" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="FirebaseDocumentId" ColumnName="FirebaseDocumentId" />
+                <ScalarProperty Name="FirebaseDocumentRef" ColumnName="FirebaseDocumentRef" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceDetails">
+            <EntityTypeMapping TypeName="MiltonDBModel.InvoiceDetail">
+              <MappingFragment StoreEntitySet="InvoiceDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ItemUnitId" ColumnName="ItemUnitId" />
+                <ScalarProperty Name="ItemQty" ColumnName="ItemQty" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="Nontaxable" ColumnName="Nontaxable" />
+                <ScalarProperty Name="CostValue" ColumnName="CostValue" />
+                <ScalarProperty Name="TotalCostValue" ColumnName="TotalCostValue" />
+                <ScalarProperty Name="DiscountRatio" ColumnName="DiscountRatio" />
+                <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="SourceRowId" ColumnName="SourceRowId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceHeaders">
+            <EntityTypeMapping TypeName="MiltonDBModel.InvoiceHeader">
+              <MappingFragment StoreEntitySet="InvoiceHeader">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="PartyType" ColumnName="PartyType" />
+                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="PosteDate" ColumnName="PosteDate" />
+                <ScalarProperty Name="PostedToStore" ColumnName="PostedToStore" />
+                <ScalarProperty Name="TotalLocal" ColumnName="TotalLocal" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
+                <ScalarProperty Name="DiscountRatio" ColumnName="DiscountRatio" />
+                <ScalarProperty Name="TaxValue" ColumnName="TaxValue" />
+                <ScalarProperty Name="TaxRatio" ColumnName="TaxRatio" />
+                <ScalarProperty Name="Expenses" ColumnName="Expenses" />
+                <ScalarProperty Name="Net" ColumnName="Net" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="Drawer" ColumnName="Drawer" />
+                <ScalarProperty Name="Remaining" ColumnName="Remaining" />
+                <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="SourceType" ColumnName="SourceType" />
+                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoicingSheets">
+            <EntityTypeMapping TypeName="MiltonDBModel.InvoicingSheet">
+              <MappingFragment StoreEntitySet="InvoicingSheets">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TransportOrderNumber" ColumnName="TransportOrderNumber" />
+                <ScalarProperty Name="TruckFireStoreRef" ColumnName="TruckFireStoreRef" />
+                <ScalarProperty Name="TruckName" ColumnName="TruckName" />
+                <ScalarProperty Name="TruckId" ColumnName="TruckId" />
+                <ScalarProperty Name="ExternalReference" ColumnName="ExternalReference" />
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="CurrencyDocumentId" ColumnName="CurrencyDocumentId" />
+                <ScalarProperty Name="VATPercentage" ColumnName="VATPercentage" />
+                <ScalarProperty Name="NIPEUVATNumber" ColumnName="NIPEUVATNumber" />
+                <ScalarProperty Name="BuyerId" ColumnName="BuyerId" />
+                <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
+                <ScalarProperty Name="BuyerAddress" ColumnName="BuyerAddress" />
+                <ScalarProperty Name="BuyerEmail" ColumnName="BuyerEmail" />
+                <ScalarProperty Name="DeadLine" ColumnName="DeadLine" />
+                <ScalarProperty Name="DepartureLocation" ColumnName="DepartureLocation" />
+                <ScalarProperty Name="ArrivalLocation" ColumnName="ArrivalLocation" />
+                <ScalarProperty Name="DistanceKM" ColumnName="DistanceKM" />
+                <ScalarProperty Name="TotalOrderWorthNET" ColumnName="TotalOrderWorthNET" />
+                <ScalarProperty Name="TotalOrderWorthGROSS" ColumnName="TotalOrderWorthGROSS" />
+                <ScalarProperty Name="RatePerKM" ColumnName="RatePerKM" />
+                <ScalarProperty Name="DateTimeCompleted" ColumnName="DateTimeCompleted" />
+                <ScalarProperty Name="DateTimeCMRSent" ColumnName="DateTimeCMRSent" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoiceIssuedDate" ColumnName="InvoiceIssuedDate" />
+                <ScalarProperty Name="InvoiceLink" ColumnName="InvoiceLink" />
+                <ScalarProperty Name="PaymentDeadline" ColumnName="PaymentDeadline" />
+                <ScalarProperty Name="PaymentDeadlineDate" ColumnName="PaymentDeadlineDate" />
+                <ScalarProperty Name="DatePaymentReceived" ColumnName="DatePaymentReceived" />
+                <ScalarProperty Name="FreightExchange" ColumnName="FreightExchange" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="FactoringAgent" ColumnName="FactoringAgent" />
+                <ScalarProperty Name="ParentInvoice" ColumnName="ParentInvoice" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="DispatchFormId" ColumnName="DispatchFormId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="ChildInvoices" ColumnName="ChildInvoices" />
+                <ScalarProperty Name="FirebaseDocumentId" ColumnName="FirebaseDocumentId" />
+                <ScalarProperty Name="FirebaseDocumentRef" ColumnName="FirebaseDocumentRef" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Journals">
+            <EntityTypeMapping TypeName="MiltonDBModel.Journal">
+              <MappingFragment StoreEntitySet="Journals">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="SourceType" ColumnName="SourceType" />
+                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="MiltonDBModel.Log">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="logDate" ColumnName="logDate" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="logThread" ColumnName="logThread" />
+                <ScalarProperty Name="logLevel" ColumnName="logLevel" />
+                <ScalarProperty Name="logSource" ColumnName="logSource" />
+                <ScalarProperty Name="logMessage" ColumnName="logMessage" />
+                <ScalarProperty Name="exception" ColumnName="exception" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MultiStopDetails">
+            <EntityTypeMapping TypeName="MiltonDBModel.MultiStopDetail">
+              <MappingFragment StoreEntitySet="MultiStopDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MultiStopRef" ColumnName="MultiStopRef" />
+                <ScalarProperty Name="MultiStopRefId" ColumnName="MultiStopRefId" />
+                <ScalarProperty Name="TransportOrderNumber" ColumnName="TransportOrderNumber" />
+                <ScalarProperty Name="ExternalReference" ColumnName="ExternalReference" />
+                <ScalarProperty Name="DispatchFormId" ColumnName="DispatchFormId" />
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+                <ScalarProperty Name="TruckId" ColumnName="TruckId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LoadDetails" ColumnName="LoadDetails" />
+                <ScalarProperty Name="Load_UnLoad" ColumnName="Load_UnLoad" />
+                <ScalarProperty Name="TotalWeightText" ColumnName="TotalWeightText" />
+                <ScalarProperty Name="TargetDateTime" ColumnName="TargetDateTime" />
+                <ScalarProperty Name="CurrentStatus" ColumnName="CurrentStatus" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="FirebaseDocumentId" ColumnName="FirebaseDocumentId" />
+                <ScalarProperty Name="FirebaseDocumentRef" ColumnName="FirebaseDocumentRef" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MultiStopHeaders">
+            <EntityTypeMapping TypeName="MiltonDBModel.MultiStopHeader">
+              <MappingFragment StoreEntitySet="MultiStopHeaders">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MultiStopRef" ColumnName="MultiStopRef" />
+                <ScalarProperty Name="TransportOrderNumber" ColumnName="TransportOrderNumber" />
+                <ScalarProperty Name="DispatchFormId" ColumnName="DispatchFormId" />
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+                <ScalarProperty Name="TruckId" ColumnName="TruckId" />
+                <ScalarProperty Name="CurrentStatus" ColumnName="CurrentStatus" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="FirebaseDocumentId" ColumnName="FirebaseDocumentId" />
+                <ScalarProperty Name="FirebaseDocumentRef" ColumnName="FirebaseDocumentRef" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="MiltonDBModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Descreption" ColumnName="Descreption" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CostCalculationMethod" ColumnName="CostCalculationMethod" />
+                <ScalarProperty Name="Nontaxable" ColumnName="Nontaxable" />
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductCategories">
+            <EntityTypeMapping TypeName="MiltonDBModel.ProductCategory">
+              <MappingFragment StoreEntitySet="ProductCategory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductUnits">
+            <EntityTypeMapping TypeName="MiltonDBModel.ProductUnit">
+              <MappingFragment StoreEntitySet="ProductUnits">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="Factor" ColumnName="Factor" />
+                <ScalarProperty Name="BuyPrice" ColumnName="BuyPrice" />
+                <ScalarProperty Name="SellPrice" ColumnName="SellPrice" />
+                <ScalarProperty Name="SellDiscount" ColumnName="SellDiscount" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StoreLogs">
+            <EntityTypeMapping TypeName="MiltonDBModel.StoreLog">
+              <MappingFragment StoreEntitySet="StoreLog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SourceType" ColumnName="SourceType" />
+                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="IsInTransaction" ColumnName="IsInTransaction" />
+                <ScalarProperty Name="CostValue" ColumnName="CostValue" />
+                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stores">
+            <EntityTypeMapping TypeName="MiltonDBModel.Store">
+              <MappingFragment StoreEntitySet="Stores">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SalesAccountId" ColumnName="SalesAccountId" />
+                <ScalarProperty Name="SalesReturnAccountId" ColumnName="SalesReturnAccountId" />
+                <ScalarProperty Name="InventoryAccountId" ColumnName="InventoryAccountId" />
+                <ScalarProperty Name="CostOfSoldGoodsAccountId" ColumnName="CostOfSoldGoodsAccountId" />
+                <ScalarProperty Name="DiscountReceivedAccountId" ColumnName="DiscountReceivedAccountId" />
+                <ScalarProperty Name="DiscountAllowedAccountId" ColumnName="DiscountAllowedAccountId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="MiltonDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trailers">
+            <EntityTypeMapping TypeName="MiltonDBModel.Trailer">
+              <MappingFragment StoreEntitySet="Trailers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TrailerName" ColumnName="TrailerName" />
+                <ScalarProperty Name="TrailerRegistrationNumber" ColumnName="TrailerRegistrationNumber" />
+                <ScalarProperty Name="TrailerFullName" ColumnName="TrailerFullName" />
+                <ScalarProperty Name="CargoHeight" ColumnName="CargoHeight" />
+                <ScalarProperty Name="CargoWidth" ColumnName="CargoWidth" />
+                <ScalarProperty Name="CargoLength" ColumnName="CargoLength" />
+                <ScalarProperty Name="GrossWeight" ColumnName="GrossWeight" />
+                <ScalarProperty Name="LoadingWeight" ColumnName="LoadingWeight" />
+                <ScalarProperty Name="TrailerTechnicalInspectionExpiryDate" ColumnName="TrailerTechnicalInspectionExpiryDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="FirebaseDocumentId" ColumnName="FirebaseDocumentId" />
+                <ScalarProperty Name="FirebaseDocumentRef" ColumnName="FirebaseDocumentRef" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TruckExpenses">
+            <EntityTypeMapping TypeName="MiltonDBModel.TruckExpens">
+              <MappingFragment StoreEntitySet="TruckExpenses">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserInputDate" ColumnName="UserInputDate" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="AmountOfLiters" ColumnName="AmountOfLiters" />
+                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CountryOfToll" ColumnName="CountryOfToll" />
+                <ScalarProperty Name="TruckName" ColumnName="TruckName" />
+                <ScalarProperty Name="TruckId" ColumnName="TruckId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Odometer" ColumnName="Odometer" />
+                <ScalarProperty Name="DistanceTravelled" ColumnName="DistanceTravelled" />
+                <ScalarProperty Name="Consumption" ColumnName="Consumption" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="LocationGeo" ColumnName="LocationGeo" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="FirebaseDocumentId" ColumnName="FirebaseDocumentId" />
+                <ScalarProperty Name="FirebaseDocumentRef" ColumnName="FirebaseDocumentRef" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trucks">
+            <EntityTypeMapping TypeName="MiltonDBModel.Truck">
+              <MappingFragment StoreEntitySet="Trucks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TruckName" ColumnName="TruckName" />
+                <ScalarProperty Name="TruckFullName" ColumnName="TruckFullName" />
+                <ScalarProperty Name="TruckRegistrationNumber" ColumnName="TruckRegistrationNumber" />
+                <ScalarProperty Name="EuroCateogry" ColumnName="EuroCateogry" />
+                <ScalarProperty Name="Vignettes" ColumnName="Vignettes" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CargoHeight" ColumnName="CargoHeight" />
+                <ScalarProperty Name="CargoWidth" ColumnName="CargoWidth" />
+                <ScalarProperty Name="CargoLength" ColumnName="CargoLength" />
+                <ScalarProperty Name="AustriaLSticker" ColumnName="AustriaLSticker" />
+                <ScalarProperty Name="GrossWeight" ColumnName="GrossWeight" />
+                <ScalarProperty Name="LoadingWeight" ColumnName="LoadingWeight" />
+                <ScalarProperty Name="MaximumTrailerGrossWeight" ColumnName="MaximumTrailerGrossWeight" />
+                <ScalarProperty Name="LondonLowEmissionZone" ColumnName="LondonLowEmissionZone" />
+                <ScalarProperty Name="FranceCritAir" ColumnName="FranceCritAir" />
+                <ScalarProperty Name="ViennaLowEmissionZone" ColumnName="ViennaLowEmissionZone" />
+                <ScalarProperty Name="TrailerName" ColumnName="TrailerName" />
+                <ScalarProperty Name="TrailerID" ColumnName="TrailerID" />
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="DriverID" ColumnName="DriverID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="TechnicalInspectionExpiryDate" ColumnName="TechnicalInspectionExpiryDate" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="FirebaseDocumentId" ColumnName="FirebaseDocumentId" />
+                <ScalarProperty Name="FirebaseDocumentRef" ColumnName="FirebaseDocumentRef" />
+                <ScalarProperty Name="Archived" ColumnName="Archived" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnitNames">
+            <EntityTypeMapping TypeName="MiltonDBModel.UnitName">
+              <MappingFragment StoreEntitySet="UnitName">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAccessProfiles">
+            <EntityTypeMapping TypeName="MiltonDBModel.UserAccessProfile">
+              <MappingFragment StoreEntitySet="UserAccessProfile">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAccessProfileDetails">
+            <EntityTypeMapping TypeName="MiltonDBModel.UserAccessProfileDetail">
+              <MappingFragment StoreEntitySet="UserAccessProfileDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserAccessProfileId" ColumnName="UserAccessProfileId" />
+                <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
+                <ScalarProperty Name="CanShow" ColumnName="CanShow" />
+                <ScalarProperty Name="CanOpen" ColumnName="CanOpen" />
+                <ScalarProperty Name="CanAdd" ColumnName="CanAdd" />
+                <ScalarProperty Name="CanEdit" ColumnName="CanEdit" />
+                <ScalarProperty Name="CanDelete" ColumnName="CanDelete" />
+                <ScalarProperty Name="CanPrint" ColumnName="CanPrint" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogs">
+            <EntityTypeMapping TypeName="MiltonDBModel.UserLog">
+              <MappingFragment StoreEntitySet="UserLog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+                <ScalarProperty Name="ScreenId" ColumnName="ScreenId" />
+                <ScalarProperty Name="ActionType" ColumnName="ActionType" />
+                <ScalarProperty Name="PartId" ColumnName="PartId" />
+                <ScalarProperty Name="PartName" ColumnName="PartName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MiltonDBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="SettingsProfileId" ColumnName="SettingsProfileId" />
+                <ScalarProperty Name="ScreenProfileId" ColumnName="ScreenProfileId" />
+                <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSettingsProfiles">
+            <EntityTypeMapping TypeName="MiltonDBModel.UserSettingsProfile">
+              <MappingFragment StoreEntitySet="UserSettingsProfile">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSetttingsProfileProperties">
+            <EntityTypeMapping TypeName="MiltonDBModel.UserSetttingsProfileProperty">
+              <MappingFragment StoreEntitySet="UserSetttingsProfileProperty">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+                <ScalarProperty Name="PropertyName" ColumnName="PropertyName" />
+                <ScalarProperty Name="PropertyValue" ColumnName="PropertyValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CashNoteLinks">
+            <EntityTypeMapping TypeName="MiltonDBModel.CashNoteLink">
+              <MappingFragment StoreEntitySet="CashNoteLinks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CashNoteId" ColumnName="CashNoteId" />
+                <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
