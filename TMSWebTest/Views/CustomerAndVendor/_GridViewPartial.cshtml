@@ -1,0 +1,52 @@
+@{
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "GridView";
+
+        var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+
+        settings.CallbackRouteValues = new { Controller = controllerName, Action = "GridViewPartial" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = controllerName, Action = "GridViewPartialAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = controllerName, Action = "GridViewPartialUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = controllerName, Action = "GridViewPartialDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = true;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.KeyFieldName = "Id";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add("Id");
+        settings.Columns.Add("Name");
+        settings.Columns.Add("AccountId");
+        settings.Columns.Add("IsCustomer");
+        settings.Columns.Add("VAT_NIP");
+        settings.Columns.Add("Mobile");
+        settings.Columns.Add("Address");
+        settings.Columns.Add("Website");
+        settings.Columns.Add("Email");
+        settings.Columns.Add("Branch");
+        settings.Columns.Add("City");
+        settings.Columns.Add("Country");
+        settings.Columns.Add("Notes");
+        settings.Columns.Add("MaxCredit");
+    });
+    if (ViewData["EditError"] != null){
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

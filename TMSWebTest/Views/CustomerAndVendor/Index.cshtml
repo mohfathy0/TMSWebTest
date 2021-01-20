@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section LeftPanelContent {
+    @Html.Partial("~/Views/LeftPanel/LeftPanelPartial.cshtml")
+}
+<h2>Index</h2>
+
+@{
+    string controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+}
+@Html.Action("GridViewPartial", controllerName)

@@ -147,7 +147,9 @@
   <ItemGroup>
     <Content Include="App_Data\Article.html" />
     <Content Include="App_Data\ArticleContents.xml" />
-    <Content Include="App_Data\LeftPanelContent.xml" />
+    <Content Include="App_Data\LeftPanelContent.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Data\Overview.html" />
     <Content Include="App_Data\OverviewContents.xml" />
     <Content Include="Content\Content.css" />
@@ -238,16 +240,6 @@
     <Content Include="Content\SignInRegister.css" />
     <Content Include="Content\SignInRegister.js" />
     <Content Include="Global.asax" />
-    <Content Include="Models\Entities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Entities.edmx</DependentUpon>
-      <LastGenOutput>Entities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Entities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Entities.edmx</DependentUpon>
-      <LastGenOutput>Entities.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -261,7 +253,9 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\ApplicationMenuDataSource.sitemap" />
+    <Content Include="App_Data\ApplicationMenuDataSource.sitemap">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
@@ -273,27 +267,15 @@
     <Content Include="Views\Account\TabControlPartial.cshtml" />
     <Content Include="Views\Account\UserMenuItemPartial.cshtml" />
     <Content Include="Views\Home\LeftPanelPartial.cshtml" />
-    <EntityDeploy Include="Models\Entities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Entities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Entities.edmx.diagram">
-      <DependentUpon>Entities.edmx</DependentUpon>
-    </Content>
     <None Include="packages.config" />
     <Content Include="Views\LeftPanel\LeftPanelPartial.cshtml" />
-    <Content Include="Views\CompanyInfoes\Devex.cshtml" />
-    <Content Include="Views\CustomerAndVendors\Create.cshtml" />
-    <Content Include="Views\CustomerAndVendors\Delete.cshtml" />
-    <Content Include="Views\CustomerAndVendors\Details.cshtml" />
-    <Content Include="Views\CustomerAndVendors\Edit.cshtml" />
-    <Content Include="Views\CustomerAndVendors\Index.cshtml" />
+    <Content Include="Views\CompanyInfo\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\CompanyInfoes\Create.cshtml" />
-    <Content Include="Views\CompanyInfoes\Delete.cshtml" />
-    <Content Include="Views\CompanyInfoes\Details.cshtml" />
-    <Content Include="Views\CompanyInfoes\Edit.cshtml" />
-    <Content Include="Views\CompanyInfoes\Index.cshtml" />
+    <Content Include="Views\CompanyInfo\Edit.cshtml" />
+    <Content Include="Views\Cust\Index.cshtml" />
+    <Content Include="Views\Cust\_GridViewPartial.cshtml" />
+    <Content Include="Views\CustomerAndVendor\Index.cshtml" />
+    <Content Include="Views\CustomerAndVendor\_GridViewPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -309,134 +291,38 @@
     <Compile Include="Code\DBContext.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CompanyInfoesController.cs" />
-    <Compile Include="Controllers\CustomerAndVendorsController.cs" />
+    <Compile Include="Controllers\CompanyInfoController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Account.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
+    <Compile Include="Migrations\202101191902416_CompanyInfo_CustVen_Tables.cs" />
+    <Compile Include="Migrations\202101191902416_CompanyInfo_CustVen_Tables.Designer.cs">
+      <DependentUpon>202101191902416_CompanyInfo_CustVen_Tables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\AccountViewModels.cs" />
-    <Compile Include="Models\CashNote.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CashNoteLink.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CompanyInfo.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Country.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CustomerAndVendor.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DispatchForm.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Document.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Drawer.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Driver.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Entities.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Models\CompanyInfo.cs" />
+    <Compile Include="Models\CustomerAndVendor.cs" />
+    <Compile Include="Models\DbInitializer.cs" />
+    <Compile Include="Models\Entities.cs" />
     <Compile Include="Models\GridView\GridViewHelper.cs" />
-    <Compile Include="Models\InvoiceDetail.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\InvoiceHeader.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\InvoicingSheet.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Journal.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Log.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MultiStopDetail.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MultiStopHeader.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Product.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProductCategory.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ProductUnit.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Scheduler\SchedulerDataSource.cs" />
     <Compile Include="Models\Scheduler\SchedulerHelper.cs" />
-    <Compile Include="Models\Store.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\StoreLog.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Trailer.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Truck.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TruckExpens.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UnitName.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserAccessProfile.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserAccessProfileDetail.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserLog.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserSettingsProfile.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserSetttingsProfileProperty.cs">
-      <DependentUpon>Entities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202101191902416_CompanyInfo_CustVen_Tables.resx">
+      <DependentUpon>202101191902416_CompanyInfo_CustVen_Tables.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Vendor\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

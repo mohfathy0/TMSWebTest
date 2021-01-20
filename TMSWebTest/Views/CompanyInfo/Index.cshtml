@@ -1,0 +1,232 @@
+﻿@model TMSWebTest.Models.CompanyInfo
+
+@{
+    ViewBag.Title = "Company Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftPanelContent {
+    @Html.Partial("~/Views/LeftPanel/LeftPanelPartial.cshtml")
+}
+
+
+
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "FormLayout";
+    //settings.Width = Unit.Percentage(100);
+
+    settings.Items.Add(b => { b.Caption = " "; });
+    settings.Items.Add(itemSettings =>
+    {
+        itemSettings.ShowCaption = DefaultBoolean.False;
+        itemSettings.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+        itemSettings.SetNestedContent(() =>
+        {
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnUpdateTop";
+                btnSettings.Text = "Apply changes";
+                btnSettings.ControlStyle.CssClass = "flButton";
+                btnSettings.UseSubmitBehavior = true;
+            }).Render();
+        });
+    });
+
+    var groupItem = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = "";
+        groupSettings.Width = Unit.Percentage(80);
+        //  groupSettings.Height = Unit.Percentage(100);
+
+        groupSettings.ColumnCount = 3;
+    });
+
+    groupItem.GridSettings.StretchLastItem = DefaultBoolean.True;
+    groupItem.GridSettings.WrapCaptionAtWidth = 660;
+    groupItem.GridSettings.Breakpoints.Add(new LayoutBreakpoint() { Name = "S", ColumnCount = 1, MaxWidth = 500 });
+    groupItem.GridSettings.Breakpoints.Add(new LayoutBreakpoint() { Name = "M", ColumnCount = 2, MaxWidth = 800 });
+    groupItem.Items.Add(settings.Items.Add(i => i.Name));
+    groupItem.Items.Add(settings.Items.Add(i => i.Id, item => { item.ClientVisible = false; }));
+    groupItem.Items.Add(settings.Items.Add(i => i.Branch));
+    groupItem.Items.Add(settings.Items.Add(i => i.City));
+    groupItem.Items.Add(settings.Items.Add(i => i.Country));
+    groupItem.Items.Add(settings.Items.Add(i => i.Email));
+    groupItem.Items.Add(settings.Items.Add(i => i.Website));
+    groupItem.Items.Add(settings.Items.Add(i => i.Mobile));
+    groupItem.Items.Add(settings.Items.Add(i => i.Phone));
+    groupItem.Items.Add(settings.Items.Add(i => i.VAT_NIP));
+    groupItem.Items.Add(settings.Items.Add(i => i.AccountId, item => { item.ClientVisible = false; }));
+
+
+    //
+
+    groupItem.Items.Add(settings.Items.Add(itemSettings=> {
+        itemSettings.FieldName = "Address";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+        itemSettings.ColumnSpan = 2;
+    }));
+    groupItem.Items.Add(settings.Items.Add(itemSettings =>
+    {
+        itemSettings.FieldName = "Notes";
+        itemSettings.NestedExtensionType = FormLayoutNestedExtensionItemType.Memo;
+        itemSettings.ColumnSpan = 2;
+    }));
+
+
+    //
+    //groupItem.Items.Add(settings.Items.Add(i => i.Address, item =>
+    //{
+    //    item.NestedExtension().Memo(s => { s.Name = "Address"; });
+    //    item.ColumnSpan = 2;
+    //}));
+    groupItem.Items.Add(b => { b.Caption = " "; });
+
+    // seperate group for Image
+    var groupItemImage = settings.Items.AddGroupItem(groupSettings =>
+    {
+        groupSettings.Caption = "Logo";
+        groupSettings.Width = Unit.Percentage(20);
+        groupSettings.ColumnCount = 1;
+
+    });
+
+
+
+
+
+    groupItem.Items.Add(groupItemImage);
+
+    groupItemImage.Items.Add(m => m.Logo, item =>
+    {
+        item.FieldName = "PhotoData";
+        item.Caption = " ";
+        item.NestedExtensionType = FormLayoutNestedExtensionItemType.BinaryImage;
+        var imgProp = item.NestedExtensionSettings as BinaryImageEditSettings;
+        imgProp.Height = 150;
+        imgProp.Width = 150;
+        item.HorizontalAlign = FormLayoutHorizontalAlign.Center;
+
+    });
+
+    groupItemImage.Items.Add(m=>m.Logo, item => {
+        item.NestedExtension().UploadControl(s => { s.Name = "uploadControl"; s.FileInputCount = 1;s.ShowAddRemoveButtons = false; });
+        item.ShowCaption = DefaultBoolean.False;    });
+
+
+
+
+
+
+
+
+
+
+    var groupContainer = settings.Items.AddGroupItem(c =>
+    {
+        c.Caption = "Company Info";
+        c.Width = Unit.Percentage(100);
+        c.ColumnCount = 2;
+    });
+
+
+
+
+    groupContainer.GridSettings.StretchLastItem = DefaultBoolean.False;
+    groupContainer.GridSettings.WrapCaptionAtWidth = 660;
+    groupContainer.GridSettings.Breakpoints.Add(new LayoutBreakpoint() { Name = "S", ColumnCount = 1, MaxWidth = 1200 });
+    groupContainer.GridSettings.Breakpoints.Add(new LayoutBreakpoint() { Name = "M", ColumnCount = 2, MaxWidth = 1300 });
+
+
+    groupContainer.Items.Add(groupItem);
+    groupContainer.Items.Add(groupItemImage);
+
+
+
+
+    //groupContainer.Items.Add(b =>
+    //{
+    //    // b.RowSpan = 1;
+    //    // b.ColumnSpan = 1;
+    //    b.Caption = "";
+    //    b.ShowCaption = DefaultBoolean.False;
+    //    b.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+    //    b.NestedExtension().Button(s =>
+    //    {
+    //        s.Name = "btn_Apply"; s.Text = "Apply"; s.UseSubmitBehavior = true;
+
+    //    });
+    //});
+
+    //settings.Items.Add(b => { b.ShowCaption = DefaultBoolean.False;
+    //    b.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+    //    b.NestedExtension().Button(s =>
+    //    {
+    //        s.Name = "btn_Apply"; s.Text = "Apply"; s.UseSubmitBehavior = true;
+
+    //    });
+    //});
+
+
+    settings.Items.Add(itemSettings =>
+    {
+        itemSettings.ShowCaption = DefaultBoolean.False;
+        itemSettings.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+        itemSettings.SetNestedContent(() =>
+        {
+            Html.DevExpress().Button(btnSettings =>
+            {
+                btnSettings.Name = "btnUpdateButtom";
+                btnSettings.Text = "Apply changes";
+                btnSettings.ControlStyle.CssClass = "flButton";
+                btnSettings.UseSubmitBehavior = true;
+            }).Render();
+        });
+    });
+
+
+    //settings.Items.Add(itemSettings =>
+    //{
+    //    itemSettings.ShowCaption = DefaultBoolean.False;
+    //    itemSettings.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+    //    itemSettings.SetNestedContent(() =>
+    //    {
+
+    //        Html.DevExpress().Button(btnSettings =>
+    //        {
+    //            btnSettings.Name = "btnUpdate";
+    //            btnSettings.Text = "Send";
+    //            btnSettings.ControlStyle.CssClass = "flButton";
+    //            btnSettings.UseSubmitBehavior = true;
+    //        }).Render();
+
+    //        Html.DevExpress().Button(btnSettings =>
+    //        {
+    //            btnSettings.Name = "btnClear";
+    //            btnSettings.Text = "Clear";
+    //            btnSettings.ControlStyle.CssClass = "flButton";
+    //            btnSettings.ClientSideEvents.Click = "function(s, e){ ASPxClientEdit.ClearEditorsInContainer(); }";
+    //        }).Render();
+
+    //    });
+    //});
+
+
+
+
+}).GetHtml()
+
+
+}
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
