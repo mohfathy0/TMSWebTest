@@ -272,8 +272,6 @@
     <Content Include="Views\CompanyInfo\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\CompanyInfo\Edit.cshtml" />
-    <Content Include="Views\Cust\Index.cshtml" />
-    <Content Include="Views\Cust\_GridViewPartial.cshtml" />
     <Content Include="Views\CustomerAndVendor\Index.cshtml" />
     <Content Include="Views\CustomerAndVendor\_GridViewPartial.cshtml" />
     <None Include="Web.Debug.config">
@@ -292,9 +290,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CompanyInfoController.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\CustomersAndVendors\CustomersAndVendorsBaseController.cs" />
+    <Compile Include="Controllers\CustomersAndVendors\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\VendorController.cs" />
+    <Compile Include="Controllers\CustomersAndVendors\VendorsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -322,6 +321,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Vendors\" />
     <Folder Include="Views\Vendor\" />
   </ItemGroup>
   <PropertyGroup>

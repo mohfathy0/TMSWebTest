@@ -5,8 +5,8 @@
   </TreeViewNode>
 
   <TreeViewNode Text="Customers And Vendors" >
-    <TreeViewNode Text="Customers" NavigateUrl="Customer" />
-    <TreeViewNode Text="Vendors" NavigateUrl="Vendor" />
+    <TreeViewNode Text="Customers" NavigateUrl="Customers" />
+    <TreeViewNode Text="Vendors" NavigateUrl="Vendors" />
   </TreeViewNode>
   
   

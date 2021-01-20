@@ -3,9 +3,9 @@
   <siteMapNode url="javascript:void(0);">
     <siteMapNode url="Home" title="Home">
     </siteMapNode>
-    <siteMapNode url="CompanyInfo" title="Company Info">
+    <!--  <siteMapNode url="CompanyInfo" title="Company Info">
     </siteMapNode>
-    <!--<siteMapNode url="Home" title="Home">
+  <siteMapNode url="Home" title="Home">
     </siteMapNode>
     <siteMapNode url="GridView" title="GridView">
     </siteMapNode>

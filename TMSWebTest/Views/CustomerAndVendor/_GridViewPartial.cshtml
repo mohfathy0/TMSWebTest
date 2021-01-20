@@ -29,11 +29,11 @@
         settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
         settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
         settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
-
-        settings.Columns.Add("Id");
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.Columns.Add(x => { x.FieldName = "Id"; x.Visible = false; x.EditFormSettings.Visible = DefaultBoolean.False; x.ReadOnly = true; });
         settings.Columns.Add("Name");
-        settings.Columns.Add("AccountId");
-        settings.Columns.Add("IsCustomer");
+        settings.Columns.Add(x => { x.FieldName = "AccountId"; x.ColumnType = MVCxGridViewColumnType.SpinEdit; });
+        settings.Columns.Add(x => { x.FieldName = "IsCustomer"; x.Visible = false; x.EditFormSettings.Visible = DefaultBoolean.False; x.ReadOnly = true; x.ColumnType = MVCxGridViewColumnType.CheckBox; });
         settings.Columns.Add("VAT_NIP");
         settings.Columns.Add("Mobile");
         settings.Columns.Add("Address");
@@ -42,8 +42,9 @@
         settings.Columns.Add("Branch");
         settings.Columns.Add("City");
         settings.Columns.Add("Country");
-        settings.Columns.Add("Notes");
         settings.Columns.Add("MaxCredit");
+        settings.Columns.Add(x => { x.FieldName = "Notes"; x.Visible = false; x.EditFormSettings.Visible = DefaultBoolean.True; x.ColumnType = MVCxGridViewColumnType.Memo; x.VisibleIndex = 13; });
+
     });
     if (ViewData["EditError"] != null){
         grid.SetEditErrorText((string)ViewData["EditError"]);
